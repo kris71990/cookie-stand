@@ -37,9 +37,6 @@ var downtown = {
   }
 };
 
-downtown.render();
-
-
 var seatac = {
   hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
   minCust: 3,
@@ -77,10 +74,8 @@ var seatac = {
   }
 };
 
-seatac.render();
-
-/*
 var seattleCenter = {
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
   minCust: 11,
   maxCust: 38,
   avgSalesPerCust: 3.7,
@@ -93,18 +88,34 @@ var seattleCenter = {
   },
 
   hourlyData: function() {
-    hourlyData = [];
-    for (var i = 0; i < 15; i++) {
-      hourlyData.push(Math.ceil(this.soldCookiesPerHour()));
+    var hourlyTotals = [];
+    var totalCookies = 0;
+    for (var i = 0; i < this.hrs.length; i++) {
+      hourlyTotals.push(Math.round(this.soldCookiesPerHour()));
+      totalCookies += hourlyTotals[i];
     }
-    return hourlyData;
+    return [hourlyTotals, totalCookies];
+  },
+
+  render: function() {
+    var ulEl = document.getElementById('seattle-center');
+    for (var i = 0; i < this.hourlyData()[0].length; i++) {
+      var liEl = document.createElement('li');
+      liEl.textContent = this.hrs[i] + ': ' + this.hourlyData()[0][i] + ' cookies';
+      ulEl.appendChild(liEl);
+    }
+
+    var totalLiEl = document.createElement('li');
+    totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    ulEl.appendChild(totalLiEl);
   }
 };
 
 var capitolHill = {
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
   minCust: 20,
   maxCust: 38,
-  salesAvg: 2.3,
+  avgSalesPerCust: 2.3,
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
@@ -114,18 +125,34 @@ var capitolHill = {
   },
 
   hourlyData: function() {
-    hourlyData = [];
-    for (var i = 0; i < 15; i++) {
-      hourlyData.push(Math.ceil(this.soldCookiesPerHour()));
+    var hourlyTotals = [];
+    var totalCookies = 0;
+    for (var i = 0; i < this.hrs.length; i++) {
+      hourlyTotals.push(Math.round(this.soldCookiesPerHour()));
+      totalCookies += hourlyTotals[i];
     }
-    return hourlyData;
+    return [hourlyTotals, totalCookies];
+  },
+
+  render: function() {
+    var ulEl = document.getElementById('capitol-hill');
+    for (var i = 0; i < this.hourlyData()[0].length; i++) {
+      var liEl = document.createElement('li');
+      liEl.textContent = this.hrs[i] + ': ' + this.hourlyData()[0][i] + ' cookies';
+      ulEl.appendChild(liEl);
+    }
+
+    var totalLiEl = document.createElement('li');
+    totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    ulEl.appendChild(totalLiEl);
   }
 }
 
 var alki = {
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
   minCust: 2,
   maxCust: 16,
-  salesAvg: 4.6
+  avgSalesPerCust: 4.6,
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
@@ -135,10 +162,31 @@ var alki = {
   },
 
   hourlyData: function() {
-    hourlyData = [];
-    for (var i = 0; i < 15; i++) {
-      hourlyData.push(Math.ceil(this.soldCookiesPerHour()));
+    var hourlyTotals = [];
+    var totalCookies = 0;
+    for (var i = 0; i < this.hrs.length; i++) {
+      hourlyTotals.push(Math.round(this.soldCookiesPerHour()));
+      totalCookies += hourlyTotals[i];
     }
-    return hourlyData;
+    return [hourlyTotals, totalCookies];
+  },
+
+  render: function() {
+    var ulEl = document.getElementById('alki');
+    for (var i = 0; i < this.hourlyData()[0].length; i++) {
+      var liEl = document.createElement('li');
+      liEl.textContent = this.hrs[i] + ': ' + this.hourlyData()[0][i] + ' cookies';
+      ulEl.appendChild(liEl);
+    }
+
+    var totalLiEl = document.createElement('li');
+    totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    ulEl.appendChild(totalLiEl);
   }
-}*/
+}
+
+downtown.render();
+seatac.render();
+seattleCenter.render();
+capitolHill.render();
+alki.render();
