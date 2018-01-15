@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var downtown = {
   hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
@@ -33,6 +33,7 @@ var downtown = {
 
     var totalLiEl = document.createElement('li');
     totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
 };
@@ -70,6 +71,7 @@ var seatac = {
 
     var totalLiEl = document.createElement('li');
     totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
 };
@@ -107,6 +109,7 @@ var seattleCenter = {
 
     var totalLiEl = document.createElement('li');
     totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
 };
@@ -144,6 +147,7 @@ var capitolHill = {
 
     var totalLiEl = document.createElement('li');
     totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
 }
@@ -181,6 +185,7 @@ var alki = {
 
     var totalLiEl = document.createElement('li');
     totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
+    totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
 }
