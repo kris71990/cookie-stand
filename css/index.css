@@ -2,13 +2,13 @@ body {
   background-color: #F7E5C2;
 }
 
-h1, h3, div {
+h1, h3, h4 {
   text-align: center;
   font-family: 'Permanent Marker', cursive;
 }
 
-h3 {
-  margin-top: 50px;
+header > h3 {
+  margin-top: 60px;
 }
 
 img {
@@ -17,15 +17,39 @@ img {
   margin: 0 auto;
 }
 
-ul {
+.locations {
   width: 600px;
   margin: 20px auto;
 }
 
-li {
+.locations > li {
   display: inline;
-  margin-right: 40px;
-  font-family: 'Times New Roman', Times, serif;
+  margin-right: 25px;
+  color: #AD3533;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+section {
+  background-color: #9FCA7E;
+  width: 500px;
+  border: 10px ridge #AD3533;
+  margin: 50px auto;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+section > p {
+  width: 300px;
+  margin: 0 auto;
+  color: #AD3533;
+}
+
+section .info {
+  list-style: none;
+  padding-left: 0;
+  color: #AD3533;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 footer {

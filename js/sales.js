@@ -1,7 +1,7 @@
 'use strict';
 
 var downtown = {
-  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   minCust: 23,
   maxCust: 65,
   avgSalesPerCust: 6.3,
@@ -39,7 +39,7 @@ var downtown = {
 };
 
 var seatac = {
-  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   minCust: 3,
   maxCust: 24,
   avgSalesPerCust: 1.2,
@@ -77,7 +77,7 @@ var seatac = {
 };
 
 var seattleCenter = {
-  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   minCust: 11,
   maxCust: 38,
   avgSalesPerCust: 3.7,
@@ -115,7 +115,7 @@ var seattleCenter = {
 };
 
 var capitolHill = {
-  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   minCust: 20,
   maxCust: 38,
   avgSalesPerCust: 2.3,
@@ -153,7 +153,7 @@ var capitolHill = {
 }
 
 var alki = {
-  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '6pm', '8pm'],
+  hrs: ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'],
   minCust: 2,
   maxCust: 16,
   avgSalesPerCust: 4.6,
