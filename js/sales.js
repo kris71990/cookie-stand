@@ -40,16 +40,17 @@ Store.prototype.avgCustVolume = function() {
 };
 
 Store.prototype.soldCookiesPerHour = function() {
-  return this.avgCustVolume() * this.avgSalesPerCust;
+  return Math.round(this.avgCustVolume() * this.avgSalesPerCust);
 };
 
-Store.prototype.hourlyData = function() {
+Store.prototype.locationData = function() {
   var hourlyTotals = [];
   var totalCookies = 0;
-  for (var i = 0; i < hrs.length; i++) {
-    hourlyTotals.push(Math.round(this.soldCookiesPerHour()));
-    totalCookies += hourlyTotals[i];
+  for (var x = 0; x < hrs.length; x++) {
+    hourlyTotals.push(this.soldCookiesPerHour());
+    totalCookies += hourlyTotals[x];
   }
+
   return [hourlyTotals, totalCookies];
 };
 
@@ -69,6 +70,39 @@ function tableHeader() {
   table.appendChild(trEl);
 }
 
+Store.prototype.render = function() {
+  var singleDataRender = this.locationData();
+  var trEl = document.createElement('tr');
+  var tdLocationEl = document.createElement('td');
+  tdLocationEl.textContent = this.mapLocation();
+  trEl.appendChild(tdLocationEl);
+
+  for (var i = 0; i < singleDataRender[0].length; i++) {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = singleDataRender[0][i];
+    trEl.appendChild(tdEl);
+  }
+
+  var totalsTdEl = document.createElement('td');
+  totalsTdEl.textContent = singleDataRender[1];
+  trEl.appendChild(totalsTdEl);
+  table.appendChild(trEl);
+};
+
+// instantiate objects for each store location
+var downtown = new Store('downtown', 65, 23, 6.3);
+var seatac = new Store('seatac', 24, 3, 1.2);
+var seattleCenter = new Store('seattle-center', 38, 11, 3.7);
+var capitolHill = new Store('capitol-hill', 38, 20, 2.3);
+var alki = new Store('alki', 16, 2, 4.6);
+
+tableHeader();
+downtown.render();
+seatac.render();
+seattleCenter.render();
+capitolHill.render();
+alki.render();
+
 function tableFooter() {
   var trEl = document.createElement('tr');
   var totals = document.createElement('td');
@@ -83,78 +117,4 @@ function tableFooter() {
   table.appendChild(trEl);
 }
 
-
-Store.prototype.test_render = function() {
-  var trEl = document.createElement('tr');
-  var tdLocationEl = document.createElement('td');
-  tdLocationEl.textContent = this.mapLocation();
-  trEl.appendChild(tdLocationEl);
-
-  for (var i = 0; i < this.hourlyData()[0].length; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = this.hourlyData()[0][i];
-    trEl.appendChild(tdEl);
-  }
-  table.appendChild(trEl);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// method appends data in list of its own creation, to be rendered when called below
-
-Store.prototype.render = function() {
-  var ulEl = document.getElementById(this.location);
-  for (var i = 0; i < this.hourlyData()[0].length; i++) {
-    var liEl = document.createElement('li');
-    liEl.textContent = hrs[i] + ': ' + this.hourlyData()[0][i] + ' cookies';
-    ulEl.appendChild(liEl);
-  }
-
-  var totalLiEl = document.createElement('li');
-  totalLiEl.textContent = 'Total: ' + this.hourlyData()[1] + ' cookies';
-  totalLiEl.className = 'total';
-  ulEl.appendChild(totalLiEl);
-};
-
-
-// instantiate objects for each store location
-var downtown = new Store('downtown', 65, 23, 6.3);
-var seatac = new Store('seatac', 24, 3, 1.2);
-var seattleCenter = new Store('seattle-center', 38, 11, 3.7);
-var capitolHill = new Store('capitol-hill', 38, 20, 2.3);
-var alki = new Store('alki', 16, 2, 4.6);
-
-// call render function of each object to render data
-downtown.render();
-seatac.render();
-seattleCenter.render();
-capitolHill.render();
-alki.render();
-
-tableHeader();
-downtown.test_render();
-seatac.test_render();
-seattleCenter.test_render();
-capitolHill.test_render();
-alki.test_render();
 tableFooter();
-
-
-
