@@ -1,6 +1,7 @@
 'use strict';
 
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
 var table = document.getElementById('sales-table');
 
 // define Store object
@@ -10,6 +11,28 @@ function Store(location, maxCust, minCust, avgSalesPerCust){
   this.minCust = minCust;
   this.avgSalesPerCust = avgSalesPerCust;
 }
+
+// switch statement to map location property to proper readable version to display on table
+Store.prototype.mapLocation = function() {
+  var tableLocation = '';
+  switch(this.location) {
+  case 'downtown':
+    tableLocation = locations[0];
+    return tableLocation;
+  case 'seatac':
+    tableLocation = locations[1];
+    return tableLocation;
+  case 'seattle-center':
+    tableLocation = locations[2];
+    return tableLocation;
+  case 'capitol-hill':
+    tableLocation = locations[3];
+    return tableLocation;
+  case 'alki':
+    tableLocation = locations[4];
+    return tableLocation;
+  }
+};
 
 // methods on the prototype object used to calculate data
 Store.prototype.avgCustVolume = function() {
@@ -30,8 +53,43 @@ Store.prototype.hourlyData = function() {
   return [hourlyTotals, totalCookies];
 };
 
+function tableHeader() {
+  var trEl = document.createElement('tr');
+  var emptyThEl = document.createElement('th');
+  trEl.appendChild(emptyThEl);
+
+  for (var i = 0; i < hrs.length; i++) {
+    var thEl = document.createElement('th');
+    thEl.textContent = hrs[i];
+    trEl.appendChild(thEl);
+  }
+  var totalEl = document.createElement('th');
+  totalEl.textContent = 'Daily Location Total';
+  trEl.appendChild(totalEl);
+  table.appendChild(trEl);
+}
+
+function tableFooter() {
+  var trEl = document.createElement('tr');
+  var totals = document.createElement('td');
+  totals.textContent = 'Totals';
+  trEl.appendChild(totals);
+
+  for (var i = 0; i < hrs.length; i++) {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = '--';
+    trEl.appendChild(tdEl);
+  }
+  table.appendChild(trEl);
+}
+
+
 Store.prototype.test_render = function() {
   var trEl = document.createElement('tr');
+  var tdLocationEl = document.createElement('td');
+  tdLocationEl.textContent = this.mapLocation();
+  trEl.appendChild(tdLocationEl);
+
   for (var i = 0; i < this.hourlyData()[0].length; i++) {
     var tdEl = document.createElement('td');
     tdEl.textContent = this.hourlyData()[0][i];
@@ -90,11 +148,13 @@ seattleCenter.render();
 capitolHill.render();
 alki.render();
 
+tableHeader();
 downtown.test_render();
 seatac.test_render();
 seattleCenter.test_render();
 capitolHill.test_render();
 alki.test_render();
+tableFooter();
 
 
 
