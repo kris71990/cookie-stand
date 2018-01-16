@@ -1,6 +1,7 @@
 'use strict';
 
-var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+var table = document.getElementById('sales-table');
 
 // define Store object
 function Store(location, maxCust, minCust, avgSalesPerCust){
@@ -29,7 +30,37 @@ Store.prototype.hourlyData = function() {
   return [hourlyTotals, totalCookies];
 };
 
-// method appends data in list of its own creation
+Store.prototype.test_render = function() {
+  var trEl = document.createElement('tr');
+  for (var i = 0; i < this.hourlyData()[0].length; i++) {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = this.hourlyData()[0][i];
+    trEl.appendChild(tdEl);
+  }
+  table.appendChild(trEl);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// method appends data in list of its own creation, to be rendered when called below
+
 Store.prototype.render = function() {
   var ulEl = document.getElementById(this.location);
   for (var i = 0; i < this.hourlyData()[0].length; i++) {
@@ -44,6 +75,7 @@ Store.prototype.render = function() {
   ulEl.appendChild(totalLiEl);
 };
 
+
 // instantiate objects for each store location
 var downtown = new Store('downtown', 65, 23, 6.3);
 var seatac = new Store('seatac', 24, 3, 1.2);
@@ -57,3 +89,12 @@ seatac.render();
 seattleCenter.render();
 capitolHill.render();
 alki.render();
+
+downtown.test_render();
+seatac.test_render();
+seattleCenter.test_render();
+capitolHill.test_render();
+alki.test_render();
+
+
+
