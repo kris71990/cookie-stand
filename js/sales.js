@@ -8,7 +8,7 @@ var downtown = {
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
-  
+
   soldCookiesPerHour: function() {
     return this.avgCustVolume() * this.avgSalesPerCust;
   },
@@ -46,7 +46,7 @@ var seatac = {
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
-  
+
   soldCookiesPerHour: function() {
     return this.avgCustVolume() * this.avgSalesPerCust;
   },
@@ -84,7 +84,7 @@ var seattleCenter = {
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
-  
+
   soldCookiesPerHour: function() {
     return this.avgCustVolume() * this.avgSalesPerCust;
   },
@@ -122,7 +122,7 @@ var capitolHill = {
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
-  
+
   soldCookiesPerHour: function() {
     return this.avgCustVolume() * this.avgSalesPerCust;
   },
@@ -160,7 +160,7 @@ var alki = {
   avgCustVolume: function(maxCust, minCust) {
     return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
   },
-  
+
   soldCookiesPerHour: function() {
     return this.avgCustVolume() * this.avgSalesPerCust;
   },
@@ -188,7 +188,7 @@ var alki = {
     totalLiEl.className = 'total';
     ulEl.appendChild(totalLiEl);
   }
-}
+};
 
 downtown.render();
 seatac.render();
