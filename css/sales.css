@@ -11,22 +11,21 @@ p {
   margin: 0 auto;
 }
 
-section {
-  width: 208px;
-  display: inline-block;
-  margin: 50px 20px;
+table {
+  width: 800px;
+  margin: 50px auto;
+  border-collapse: collapse;
 }
 
-li {
-  padding: 2px;
-  list-style-position: inside;
-  list-style: square
+th {
+  border-bottom: 2px solid #AD3533;
+  border-right: 2px solid #AD3533;
 }
 
-.total {
-  font-weight: bold;
-  list-style: none;
-  margin-top: 10px;
+td {
+  padding: 10px;
+  border-right: 2px solid #AD3533;
+  border-bottom: 2px solid #AD3533;
 }
 
 div {

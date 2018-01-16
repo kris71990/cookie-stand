@@ -70,6 +70,23 @@ function tableHeader() {
   table.appendChild(trEl);
 }
 
+function tableFooter() {
+  var trEl = document.createElement('tr');
+  var totals = document.createElement('td');
+  totals.textContent = 'Totals';
+  trEl.appendChild(totals);
+
+  for (var i = 0; i < hrs.length; i++) {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = '--';
+    trEl.appendChild(tdEl);
+  }
+  var grandTotal = document.createElement('td');
+  grandTotal.textContent = '--';
+  trEl.appendChild(grandTotal);
+  table.appendChild(trEl);
+}
+
 Store.prototype.render = function() {
   var singleDataRender = this.locationData();
   var trEl = document.createElement('tr');
@@ -102,19 +119,4 @@ seatac.render();
 seattleCenter.render();
 capitolHill.render();
 alki.render();
-
-function tableFooter() {
-  var trEl = document.createElement('tr');
-  var totals = document.createElement('td');
-  totals.textContent = 'Totals';
-  trEl.appendChild(totals);
-
-  for (var i = 0; i < hrs.length; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = '--';
-    trEl.appendChild(tdEl);
-  }
-  table.appendChild(trEl);
-}
-
 tableFooter();
