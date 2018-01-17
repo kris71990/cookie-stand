@@ -2,8 +2,9 @@
 
 var stores = [];
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
+var locations = ['downtown', 'seatac', 'seattleCenter', 'capitolHill', 'alki'];
 var table = document.getElementById('sales-table');
+var form = document.getElementById('location-form');
 
 
 // define Store object
@@ -20,19 +21,22 @@ Store.prototype.mapLocation = function() {
   var tableLocation = '';
   switch(this.location) {
   case 'downtown':
-    tableLocation = locations[0];
+    tableLocation = '1st and Pike';
     return tableLocation;
   case 'seatac':
-    tableLocation = locations[1];
+    tableLocation = 'SeaTac Airport';
     return tableLocation;
   case 'seattleCenter':
-    tableLocation = locations[2];
+    tableLocation = 'Seattle Center';
     return tableLocation;
   case 'capitolHill':
-    tableLocation = locations[3];
+    tableLocation = 'Capitol Hill';
     return tableLocation;
   case 'alki':
-    tableLocation = locations[4];
+    tableLocation = 'Alki';
+    return tableLocation;
+  default:
+    tableLocation = this.location;
     return tableLocation;
   }
 };
@@ -121,6 +125,23 @@ function renderAll() {
     stores[i].render();
   }
 }
+
+function addEvent(event) {
+  event.preventDefault();
+
+  var newLocation = event.target.location.value;
+  var newMaxCust = event.target.maxCust.value;
+  var newMinCust = event.target.minCust.value;
+  var avgSales = event.target.avgSales.value;
+
+  new Store(newLocation, newMaxCust, newMinCust, avgSales);
+  locations.push(newLocation);
+  table.innerHTML = '';
+  tableHeader();
+  renderAll();
+}
+
+form.addEventListener('submit', addEvent);
 
 tableHeader();
 renderAll();
