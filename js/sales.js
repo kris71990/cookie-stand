@@ -1,5 +1,6 @@
 'use strict';
 
+var stores = [];
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
 var table = document.getElementById('sales-table');
@@ -11,6 +12,7 @@ function Store(location, maxCust, minCust, avgSalesPerCust){
   this.maxCust = maxCust;
   this.minCust = minCust;
   this.avgSalesPerCust = avgSalesPerCust;
+  stores.push(this);
 }
 
 // switch statement to map location property to proper readable version to display on table
@@ -23,10 +25,10 @@ Store.prototype.mapLocation = function() {
   case 'seatac':
     tableLocation = locations[1];
     return tableLocation;
-  case 'seattle-center':
+  case 'seattleCenter':
     tableLocation = locations[2];
     return tableLocation;
-  case 'capitol-hill':
+  case 'capitolHill':
     tableLocation = locations[3];
     return tableLocation;
   case 'alki':
@@ -108,16 +110,18 @@ Store.prototype.render = function() {
 };
 
 // instantiate objects for each store location
-var downtown = new Store('downtown', 65, 23, 6.3);
-var seatac = new Store('seatac', 24, 3, 1.2);
-var seattleCenter = new Store('seattle-center', 38, 11, 3.7);
-var capitolHill = new Store('capitol-hill', 38, 20, 2.3);
-var alki = new Store('alki', 16, 2, 4.6);
+new Store('downtown', 65, 23, 6.3);
+new Store('seatac', 24, 3, 1.2);
+new Store('seattleCenter', 38, 11, 3.7);
+new Store('capitolHill', 38, 20, 2.3);
+new Store('alki', 16, 2, 4.6);
+
+function renderAll() {
+  for (var i = 0; i < stores.length; i++) {
+    stores[i].render();
+  }
+}
 
 tableHeader();
-downtown.render();
-seatac.render();
-seattleCenter.render();
-capitolHill.render();
-alki.render();
+renderAll();
 tableFooter();
