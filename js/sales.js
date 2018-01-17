@@ -4,6 +4,7 @@ var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3p
 var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
 var table = document.getElementById('sales-table');
 
+
 // define Store object
 function Store(location, maxCust, minCust, avgSalesPerCust){
   this.location = location;
@@ -73,7 +74,7 @@ function tableHeader() {
 function tableFooter() {
   var trEl = document.createElement('tr');
   var totals = document.createElement('td');
-  totals.textContent = 'Totals';
+  totals.textContent = 'Hourly Totals';
   trEl.appendChild(totals);
 
   for (var i = 0; i < hrs.length; i++) {
