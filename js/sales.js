@@ -35,12 +35,12 @@ Store.prototype.mapLocation = function() {
 };
 
 // methods on the prototype object used to calculate data
-Store.prototype.avgCustVolume = function() {
+Store.prototype.custVolume = function() {
   return Math.ceil(Math.random() * (this.maxCust - this.minCust) + this.minCust);
 };
 
 Store.prototype.soldCookiesPerHour = function() {
-  return Math.round(this.avgCustVolume() * this.avgSalesPerCust);
+  return Math.round(this.custVolume() * this.avgSalesPerCust);
 };
 
 Store.prototype.locationData = function() {
