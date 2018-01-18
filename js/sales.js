@@ -1,10 +1,8 @@
 'use strict';
 
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
 var table = document.getElementById('sales-table');
 var form = document.getElementById('location-form');
-
 
 // define Store object
 function Store(location, maxCust, minCust, avgSalesPerCust){
@@ -12,9 +10,9 @@ function Store(location, maxCust, minCust, avgSalesPerCust){
   this.maxCust = maxCust;
   this.minCust = minCust;
   this.avgSalesPerCust = avgSalesPerCust;
-  Store.allLocations.push(this);
   this.custEachHour = [];
   this.totalCookies = 0;
+  Store.allLocations.push(this);
 }
 
 Store.allLocations = [];
@@ -29,6 +27,7 @@ Store.prototype.soldCookiesPerHour = function() {
 };
 
 Store.prototype.locationData = function() {
+  this.custEachHour = [];
   for (var x = 0; x < hrs.length; x++) {
     this.custEachHour.push(this.soldCookiesPerHour());
     this.totalCookies += this.custEachHour[x];
@@ -119,7 +118,6 @@ function addEvent(event) {
   var avgSales = event.target.avgSales.value;
 
   new Store(newLocation, newMaxCust, newMinCust, avgSales);
-  locations.push(newLocation);
   table.innerHTML = '';
   tableHeader();
   renderAll();
