@@ -2,7 +2,7 @@
 
 var stores = [];
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-var locations = ['downtown', 'seatac', 'seattleCenter', 'capitolHill', 'alki'];
+var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
 var table = document.getElementById('sales-table');
 var form = document.getElementById('location-form');
 
@@ -15,31 +15,6 @@ function Store(location, maxCust, minCust, avgSalesPerCust){
   this.avgSalesPerCust = avgSalesPerCust;
   stores.push(this);
 }
-
-// switch statement to map location property to proper readable version to display on table
-Store.prototype.mapLocation = function() {
-  var tableLocation = '';
-  switch(this.location) {
-  case 'downtown':
-    tableLocation = '1st and Pike';
-    return tableLocation;
-  case 'seatac':
-    tableLocation = 'SeaTac Airport';
-    return tableLocation;
-  case 'seattleCenter':
-    tableLocation = 'Seattle Center';
-    return tableLocation;
-  case 'capitolHill':
-    tableLocation = 'Capitol Hill';
-    return tableLocation;
-  case 'alki':
-    tableLocation = 'Alki';
-    return tableLocation;
-  default:
-    tableLocation = this.location;
-    return tableLocation;
-  }
-};
 
 // methods on the prototype object used to calculate data
 Store.prototype.custVolume = function() {
@@ -65,7 +40,7 @@ Store.prototype.render = function() {
   var singleDataRender = this.locationData();
   var trEl = document.createElement('tr');
   var tdLocationEl = document.createElement('td');
-  tdLocationEl.textContent = this.mapLocation();
+  tdLocationEl.textContent = this.location;
   trEl.appendChild(tdLocationEl);
 
   for (var i = 0; i < singleDataRender[0].length; i++) {
@@ -121,11 +96,11 @@ function tableFooter() {
 }
 
 // instantiate objects for each store location
-new Store('downtown', 65, 23, 6.3);
-new Store('seatac', 24, 3, 1.2);
-new Store('seattleCenter', 38, 11, 3.7);
-new Store('capitolHill', 38, 20, 2.3);
-new Store('alki', 16, 2, 4.6);
+new Store('1st and Pike', 65, 23, 6.3);
+new Store('SeaTac', 24, 3, 1.2);
+new Store('Seattle Center', 38, 11, 3.7);
+new Store('Capitol Hill', 38, 20, 2.3);
+new Store('Alki', 16, 2, 4.6);
 
 function renderAll() {
   for (var i = 0; i < stores.length; i++) {
