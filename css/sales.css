@@ -33,8 +33,17 @@ form {
   margin: 50px auto;
 }
 
-#input {
+.input {
+  width: 400px;
   display: block;
+  margin: 5px;
+}
+
+label {
+  float: left;
+  width: 200px;
+  text-align: right;
+  padding-right: 20px;
 }
 
 input {
@@ -42,7 +51,9 @@ input {
 }
 
 button {
-  margin-top: 10px;
+  display: block;
+  width: 100px;
+  margin: 10px auto;
 }
 
 footer {

@@ -61,23 +61,6 @@ Store.prototype.locationData = function() {
   return [locationTotals, totalCookies];
 };
 
-function tableHeader() {
-  var trEl = document.createElement('tr');
-  var emptyThEl = document.createElement('th');
-  trEl.appendChild(emptyThEl);
-
-  for (var i = 0; i < hrs.length; i++) {
-    var thEl = document.createElement('th');
-    thEl.textContent = hrs[i];
-    trEl.appendChild(thEl);
-  }
-  var totalEl = document.createElement('th');
-  totalEl.textContent = 'Daily Location Total';
-  trEl.appendChild(totalEl);
-  table.appendChild(trEl);
-}
-
-
 Store.prototype.render = function() {
   var singleDataRender = this.locationData();
   var trEl = document.createElement('tr');
@@ -95,7 +78,24 @@ Store.prototype.render = function() {
   totalsTdEl.textContent = singleDataRender[1];
   trEl.appendChild(totalsTdEl);
   table.appendChild(trEl);
+
 };
+
+function tableHeader() {
+  var trEl = document.createElement('tr');
+  var emptyThEl = document.createElement('th');
+  trEl.appendChild(emptyThEl);
+
+  for (var i = 0; i < hrs.length; i++) {
+    var thEl = document.createElement('th');
+    thEl.textContent = hrs[i];
+    trEl.appendChild(thEl);
+  }
+  var totalEl = document.createElement('th');
+  totalEl.textContent = 'Daily Location Total';
+  trEl.appendChild(totalEl);
+  table.appendChild(trEl);
+}
 
 function tableFooter() {
   var trEl = document.createElement('tr');
