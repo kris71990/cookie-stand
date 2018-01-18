@@ -28,6 +28,34 @@ td {
   border-bottom: 2px solid #AD3533;
 }
 
-div {
+form {
+  width: 500px;
+  margin: 50px auto;
+}
+
+.input {
+  width: 400px;
+  display: block;
+  margin: 5px;
+}
+
+label {
+  float: left;
+  width: 200px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+input {
+  padding: 10px;
+}
+
+button {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+}
+
+footer {
   text-align: center;
 }

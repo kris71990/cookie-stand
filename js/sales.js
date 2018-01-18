@@ -1,8 +1,10 @@
 'use strict';
 
+var stores = [];
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
-var locations = ['1st and Pike', 'SeaTac Airport', 'Seattle Center', 'Capitol Hill', 'Alki'];
+var locations = ['downtown', 'seatac', 'seattleCenter', 'capitolHill', 'alki'];
 var table = document.getElementById('sales-table');
+var form = document.getElementById('location-form');
 
 
 // define Store object
@@ -11,6 +13,7 @@ function Store(location, maxCust, minCust, avgSalesPerCust){
   this.maxCust = maxCust;
   this.minCust = minCust;
   this.avgSalesPerCust = avgSalesPerCust;
+  stores.push(this);
 }
 
 // switch statement to map location property to proper readable version to display on table
@@ -18,19 +21,22 @@ Store.prototype.mapLocation = function() {
   var tableLocation = '';
   switch(this.location) {
   case 'downtown':
-    tableLocation = locations[0];
+    tableLocation = '1st and Pike';
     return tableLocation;
   case 'seatac':
-    tableLocation = locations[1];
+    tableLocation = 'SeaTac Airport';
     return tableLocation;
-  case 'seattle-center':
-    tableLocation = locations[2];
+  case 'seattleCenter':
+    tableLocation = 'Seattle Center';
     return tableLocation;
-  case 'capitol-hill':
-    tableLocation = locations[3];
+  case 'capitolHill':
+    tableLocation = 'Capitol Hill';
     return tableLocation;
   case 'alki':
-    tableLocation = locations[4];
+    tableLocation = 'Alki';
+    return tableLocation;
+  default:
+    tableLocation = this.location;
     return tableLocation;
   }
 };
@@ -45,14 +51,34 @@ Store.prototype.soldCookiesPerHour = function() {
 };
 
 Store.prototype.locationData = function() {
-  var hourlyTotals = [];
+  var locationTotals = [];
   var totalCookies = 0;
   for (var x = 0; x < hrs.length; x++) {
-    hourlyTotals.push(this.soldCookiesPerHour());
-    totalCookies += hourlyTotals[x];
+    locationTotals.push(this.soldCookiesPerHour());
+    totalCookies += locationTotals[x];
   }
 
-  return [hourlyTotals, totalCookies];
+  return [locationTotals, totalCookies];
+};
+
+Store.prototype.render = function() {
+  var singleDataRender = this.locationData();
+  var trEl = document.createElement('tr');
+  var tdLocationEl = document.createElement('td');
+  tdLocationEl.textContent = this.mapLocation();
+  trEl.appendChild(tdLocationEl);
+
+  for (var i = 0; i < singleDataRender[0].length; i++) {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = singleDataRender[0][i];
+    trEl.appendChild(tdEl);
+  }
+
+  var totalsTdEl = document.createElement('td');
+  totalsTdEl.textContent = singleDataRender[1];
+  trEl.appendChild(totalsTdEl);
+  table.appendChild(trEl);
+
 };
 
 function tableHeader() {
@@ -78,46 +104,53 @@ function tableFooter() {
   trEl.appendChild(totals);
 
   for (var i = 0; i < hrs.length; i++) {
+    var total = 0;
+    for (var j = 0; j < stores.length; j++) {
+      total += stores[j].locationData()[0][i];
+    }
+
     var tdEl = document.createElement('td');
-    tdEl.textContent = '--';
+    tdEl.textContent = total;
     trEl.appendChild(tdEl);
   }
+
   var grandTotal = document.createElement('td');
   grandTotal.textContent = '--';
   trEl.appendChild(grandTotal);
   table.appendChild(trEl);
 }
 
-Store.prototype.render = function() {
-  var singleDataRender = this.locationData();
-  var trEl = document.createElement('tr');
-  var tdLocationEl = document.createElement('td');
-  tdLocationEl.textContent = this.mapLocation();
-  trEl.appendChild(tdLocationEl);
-
-  for (var i = 0; i < singleDataRender[0].length; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = singleDataRender[0][i];
-    trEl.appendChild(tdEl);
-  }
-
-  var totalsTdEl = document.createElement('td');
-  totalsTdEl.textContent = singleDataRender[1];
-  trEl.appendChild(totalsTdEl);
-  table.appendChild(trEl);
-};
-
 // instantiate objects for each store location
-var downtown = new Store('downtown', 65, 23, 6.3);
-var seatac = new Store('seatac', 24, 3, 1.2);
-var seattleCenter = new Store('seattle-center', 38, 11, 3.7);
-var capitolHill = new Store('capitol-hill', 38, 20, 2.3);
-var alki = new Store('alki', 16, 2, 4.6);
+new Store('downtown', 65, 23, 6.3);
+new Store('seatac', 24, 3, 1.2);
+new Store('seattleCenter', 38, 11, 3.7);
+new Store('capitolHill', 38, 20, 2.3);
+new Store('alki', 16, 2, 4.6);
+
+function renderAll() {
+  for (var i = 0; i < stores.length; i++) {
+    stores[i].render();
+  }
+}
+
+function addEvent(event) {
+  event.preventDefault();
+
+  var newLocation = event.target.location.value;
+  var newMaxCust = event.target.maxCust.value;
+  var newMinCust = event.target.minCust.value;
+  var avgSales = event.target.avgSales.value;
+
+  new Store(newLocation, newMaxCust, newMinCust, avgSales);
+  locations.push(newLocation);
+  table.innerHTML = '';
+  tableHeader();
+  renderAll();
+  tableFooter();
+}
+
+form.addEventListener('submit', addEvent);
 
 tableHeader();
-downtown.render();
-seatac.render();
-seattleCenter.render();
-capitolHill.render();
-alki.render();
+renderAll();
 tableFooter();
