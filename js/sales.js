@@ -51,14 +51,14 @@ Store.prototype.soldCookiesPerHour = function() {
 };
 
 Store.prototype.locationData = function() {
-  var hourlyTotals = [];
+  var locationTotals = [];
   var totalCookies = 0;
   for (var x = 0; x < hrs.length; x++) {
-    hourlyTotals.push(this.soldCookiesPerHour());
-    totalCookies += hourlyTotals[x];
+    locationTotals.push(this.soldCookiesPerHour());
+    totalCookies += locationTotals[x];
   }
 
-  return [hourlyTotals, totalCookies];
+  return [locationTotals, totalCookies];
 };
 
 function tableHeader() {
@@ -77,22 +77,6 @@ function tableHeader() {
   table.appendChild(trEl);
 }
 
-function tableFooter() {
-  var trEl = document.createElement('tr');
-  var totals = document.createElement('td');
-  totals.textContent = 'Hourly Totals';
-  trEl.appendChild(totals);
-
-  for (var i = 0; i < hrs.length; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = '--';
-    trEl.appendChild(tdEl);
-  }
-  var grandTotal = document.createElement('td');
-  grandTotal.textContent = '--';
-  trEl.appendChild(grandTotal);
-  table.appendChild(trEl);
-}
 
 Store.prototype.render = function() {
   var singleDataRender = this.locationData();
@@ -112,6 +96,29 @@ Store.prototype.render = function() {
   trEl.appendChild(totalsTdEl);
   table.appendChild(trEl);
 };
+
+function tableFooter() {
+  var trEl = document.createElement('tr');
+  var totals = document.createElement('td');
+  totals.textContent = 'Hourly Totals';
+  trEl.appendChild(totals);
+
+  for (var i = 0; i < hrs.length; i++) {
+    var total = 0;
+    for (var j = 0; j < stores.length; j++) {
+      total += stores[j].locationData()[0][i];
+    }
+
+    var tdEl = document.createElement('td');
+    tdEl.textContent = total;
+    trEl.appendChild(tdEl);
+  }
+
+  var grandTotal = document.createElement('td');
+  grandTotal.textContent = '--';
+  trEl.appendChild(grandTotal);
+  table.appendChild(trEl);
+}
 
 // instantiate objects for each store location
 new Store('downtown', 65, 23, 6.3);
@@ -139,6 +146,7 @@ function addEvent(event) {
   table.innerHTML = '';
   tableHeader();
   renderAll();
+  tableFooter();
 }
 
 form.addEventListener('submit', addEvent);
