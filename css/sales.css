@@ -33,6 +33,13 @@ form {
   margin: 50px auto;
 }
 
+select {
+  display: block;
+  width: 100px;
+  margin: 10px auto;
+  border: 1px solid black;
+}
+
 .input {
   width: 400px;
   display: block;

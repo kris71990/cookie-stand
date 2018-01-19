@@ -2,7 +2,8 @@
 
 var hrs = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 var table = document.getElementById('sales-table');
-var form = document.getElementById('location-form');
+var locationForm = document.getElementById('location-form');
+var updateForm = document.getElementById('update-form');
 
 // define Store object
 function Store(location, maxCust, minCust, avgSalesPerCust){
@@ -28,6 +29,7 @@ Store.prototype.soldCookiesPerHour = function() {
 
 Store.prototype.locationData = function() {
   this.custEachHour = [];
+  this.totalCookies = 0;
   for (var x = 0; x < hrs.length; x++) {
     this.custEachHour.push(this.soldCookiesPerHour());
     this.totalCookies += this.custEachHour[x];
@@ -53,6 +55,7 @@ Store.prototype.render = function() {
   table.appendChild(trEl);
 };
 
+// standalone functions generate header and footer of table
 function tableHeader() {
   var trEl = document.createElement('tr');
   var emptyThEl = document.createElement('th');
@@ -109,22 +112,52 @@ function renderAll() {
   }
 }
 
-function addEvent(event) {
+// Event listeners to add a new location or update data for an existing location
+function addLocation(event) {
   event.preventDefault();
+  var selectEl = document.getElementById('current-locations');
 
   var newLocation = event.target.location.value;
-  var newMaxCust = event.target.maxCust.value;
-  var newMinCust = event.target.minCust.value;
-  var avgSales = event.target.avgSales.value;
+  var newMaxCust = parseInt(event.target.maxCust.value);
+  var newMinCust = parseInt(event.target.minCust.value);
+  var avgSales = parseInt(event.target.avgSales.value);
 
   new Store(newLocation, newMaxCust, newMinCust, avgSales);
+
+  var option = document.createElement('option');
+  option.setAttribute('value', newLocation);
+  option.textContent = newLocation;
+  selectEl.appendChild(option);
+
   table.innerHTML = '';
   tableHeader();
   renderAll();
   tableFooter();
 }
 
-form.addEventListener('submit', addEvent);
+function updateData(event) {
+  event.preventDefault();
+  var select = document.getElementById('current-locations').value;
+  var updateMax = parseInt(event.target.updateMax.value);
+  var updateMin = parseInt(event.target.updateMin.value);
+  var updateAvgSales = parseInt(event.target.updateAvgSales.value);
+
+  for (var i = 0; i < Store.allLocations.length; i++) {
+    if (Store.allLocations[i].location === select) {
+      Store.allLocations[i].maxCust = updateMax;
+      Store.allLocations[i].minCust = updateMin;
+      Store.allLocations[i].avgSalesPerCust = updateAvgSales;
+
+      table.innerHTML = '';
+      tableHeader();
+      renderAll();
+      tableFooter();
+    }
+  }
+}
+
+locationForm.addEventListener('submit', addLocation);
+updateForm.addEventListener('submit', updateData);
 
 tableHeader();
 renderAll();
